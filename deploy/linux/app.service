@@ -1,0 +1,17 @@
+[Unit]
+Description=AI Document Intelligence Platform
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/app/backend
+EnvironmentFile=/opt/app/backend/.env
+ExecStart=/opt/app/backend/venv/bin/gunicorn app.main:app -k uvicorn.workers.UvicornWorker --config /opt/app/backend/gunicorn.conf.py
+Restart=always
+RestartSec=10
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,41 @@
+# Python
+backend/venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Environment files
+.env
+backend/.env
+frontend/.env
+
+# Uploads and logs
+backend/uploads/
+backend/logs/
+uploads/
+logs/
+*.log
+
+# Node / React
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+node_modules/
+dist/
+build/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Backups
+*.sql
+*.dump
+*.bak
+backups/
+
+# Cache
+.cache/
