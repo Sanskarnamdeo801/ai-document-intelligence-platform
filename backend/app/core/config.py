@@ -10,8 +10,10 @@ class Settings(BaseSettings):
     OLLAMA_MODEL: str = "llama3.2:3b"
     OLLAMA_HOST: str = "http://localhost:11434"
     MAX_UPLOAD_SIZE_MB: int = 50
+    PORT: int = 8000
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
 settings = Settings()
+
