@@ -23,21 +23,33 @@ async def lifespan(_: FastAPI):
     yield
 
 
-app = FastAPI(title="AI Document Intelligence Platform", version="1.0.0", lifespan=lifespan)
+app = FastAPI(
+    title="AI Document Intelligence Platform",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+
+origins = [
+    "https://ai-document-intelligence-platform-phi.vercel.app",
+    "http://localhost:5173",  
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,   
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# ✅ ROUTES
 app.include_router(documents_router, prefix="/api/v1", tags=["documents"])
 app.include_router(processing_router, prefix="/api/v1", tags=["processing"])
 app.include_router(search_router, prefix="/api/v1", tags=["search"])
 app.include_router(qa_router, prefix="/api/v1", tags=["qa"])
 app.include_router(dashboard_router, prefix="/api/v1", tags=["dashboard"])
+
 
 
 @app.get("/health")
@@ -54,7 +66,7 @@ def health_db(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
+
 if __name__ == "__main__":
     import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
